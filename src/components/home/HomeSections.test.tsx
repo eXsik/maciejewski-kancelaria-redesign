@@ -42,6 +42,24 @@ describe("Home sections", () => {
     ).toBeInTheDocument();
   });
 
+  it("links every service to its detail page", async () => {
+    const services = await repository.getServices();
+
+    render(<ServicesSection services={services} isDemoContent />);
+
+    const detailLinks = screen.getAllByRole("link", {
+      name: /Dowiedz się więcej/,
+    });
+
+    expect(detailLinks).toHaveLength(4);
+    expect(detailLinks.map((link) => link.getAttribute("href"))).toEqual([
+      "/uslugi/prawo-cywilne",
+      "/uslugi/prawo-rodzinne",
+      "/uslugi/obsluga-przedsiebiorcow",
+      "/uslugi/prawo-pracy",
+    ]);
+  });
+
   it("renders an explicit empty state when no services are available", () => {
     render(<ServicesSection services={[]} isDemoContent={false} />);
 
@@ -58,7 +76,9 @@ describe("Home sections", () => {
       name: "Miejsce na zweryfikowane dane kancelarii.",
     });
 
-    expect(within(contactSection).getByText("Ostrów Wielkopolski")).toBeInTheDocument();
+    expect(
+      within(contactSection).getByText("Ostrów Wielkopolski"),
+    ).toBeInTheDocument();
     expect(within(contactSection).queryByRole("link")).not.toBeInTheDocument();
     expect(contactSection.querySelector('a[href^="tel:"]')).toBeNull();
     expect(contactSection.querySelector('a[href^="mailto:"]')).toBeNull();

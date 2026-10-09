@@ -10,9 +10,9 @@ export function SiteHeader() {
       </Link>
 
       <nav aria-label="Główna nawigacja" className={styles.nav}>
-        <Link href="#uslugi">Usługi</Link>
-        <Link href="#kontakt">Kontakt</Link>
-        <Link className={styles.navButton} href="#kontakt">
+        <Link href="/uslugi">Usługi</Link>
+        <Link href="/#kontakt">Kontakt</Link>
+        <Link className={styles.navButton} href="/#kontakt">
           Zobacz kontakt
         </Link>
       </nav>

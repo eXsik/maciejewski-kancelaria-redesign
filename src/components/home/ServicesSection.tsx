@@ -37,11 +37,9 @@ export function ServicesSection({
               ) : null}
               <h3>{service.title}</h3>
               <p>{service.shortDescription}</p>
-              {service.cta ? (
-                <Link href={service.cta.href}>
-                  {service.cta.label} <span aria-hidden="true">→</span>
-                </Link>
-              ) : null}
+              <Link href={`/uslugi/${service.slug}`}>
+                Dowiedz się więcej <span aria-hidden="true">→</span>
+              </Link>
             </article>
           ))}
         </div>
