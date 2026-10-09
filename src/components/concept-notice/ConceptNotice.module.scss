@@ -1,0 +1,28 @@
+.notice {
+  background: var(--color-ink);
+  color: var(--color-white);
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.inner {
+  display: flex;
+  gap: 12px 20px;
+  width: min(var(--container-width), calc(100% - (2 * var(--page-padding))));
+  margin-inline: auto;
+  padding-block: 10px;
+
+  strong {
+    flex: 0 0 auto;
+    color: #edb49f;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+}
+
+@media (max-width: 700px) {
+  .inner {
+    flex-direction: column;
+    gap: 2px;
+  }
+}
