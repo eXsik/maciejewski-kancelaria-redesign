@@ -8,11 +8,11 @@ Projekt nie jest oficjalną stroną kancelarii. Nie został przez nią zamówion
 
 Kilka widoków z aktualnej wersji projektu:
 
-![Strona główna — desktop](docs/screenshots/home-desktop.png)
+![Strona główna — desktop](screenshots/home-desktop.png)
 
-![Strona główna — mobile](docs/screenshots/home-mobile.png)
+![Strona główna — mobile](screenshots/home-mobile.png)
 
-![Lista usług — desktop](docs/screenshots/services-desktop.png)
+![Lista usług — desktop](screenshots/services-desktop.png)
 
 ## Co znajduje się w projekcie
 
