@@ -1,0 +1,14 @@
+.feed {
+  margin-top: 4rem;
+}
+
+.list {
+  display: grid;
+  gap: 1px;
+  margin-top: 1px;
+  background: var(--color-line);
+}
+.emptyState {
+  margin-top: 4rem;
+  color: var(--color-ink-soft);
+}

@@ -14,6 +14,7 @@ type WordPressNode = {
   content?: string | null;
   excerpt?: string | null;
   date?: string | null;
+  modified?: string | null;
   author?: { node?: { name?: string | null } | null } | null;
   featuredImage?: { node?: WordPressImage | null } | null;
 };
@@ -74,7 +75,7 @@ const ARTICLES_QUERY = `
   query Articles($slug: String) {
     posts(first: 100, where: { name: $slug }) {
       nodes {
-        id title slug excerpt content date author { node { name } }
+        id title slug excerpt content date modified author { node { name } }
         featuredImage { node { sourceUrl altText mediaDetails { width height } } }
         categories { nodes { name } }
         articleFields {
@@ -151,6 +152,7 @@ function mapArticle(node: ArticleNode): Article {
     image: imageFromWordPress(node.featuredImage?.node),
     category: node.categories?.nodes?.[0]?.name ?? null,
     publishedAt: node.date ?? "",
+    updatedAt: node.modified ?? null,
     author: node.author?.node?.name ?? null,
     relatedServiceSlugs: (fields?.relatedServices?.nodes ?? [])
       .map((service) => clean(service.slug))

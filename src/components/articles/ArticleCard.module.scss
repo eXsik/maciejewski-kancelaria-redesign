@@ -1,0 +1,156 @@
+.card {
+  border-top: 1px solid var(--color-line);
+  background: var(--color-sand-light);
+  transition: background 180ms ease;
+
+  &:hover,
+  &:focus-within {
+    background: #eeebe4;
+  }
+}
+
+.content {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.42fr) minmax(0, 1.3fr) auto;
+  gap: clamp(28px, 5vw, 72px);
+  align-items: start;
+  min-height: 250px;
+  padding: 32px;
+}
+
+.featured {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  border-top: 0;
+  background: var(--color-ink);
+  color: var(--color-white);
+
+  &:hover,
+  &:focus-within {
+    background: #153939;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 390px;
+    padding: clamp(36px, 5vw, 64px);
+  }
+
+  .excerpt {
+    color: rgb(255 255 255 / 72%);
+  }
+
+  .meta,
+  .demoNote {
+    color: #d7c39d;
+  }
+
+  .link {
+    border-color: #d7c39d;
+    color: var(--color-white);
+    align-self: flex-start;
+  }
+}
+
+.media {
+  position: relative;
+  min-height: 390px;
+  overflow: hidden;
+  background: var(--color-ink);
+
+  img {
+    object-fit: cover;
+  }
+}
+
+.meta {
+  display: grid;
+  gap: 8px;
+  color: var(--color-terracotta);
+  font-size: 0.8rem;
+  line-height: 1.45;
+
+  time {
+    color: currentColor;
+  }
+}
+
+.copy {
+  min-width: 0;
+}
+
+.copy h2 {
+  max-width: 18ch;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3vw, 3rem);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
+
+.featured .copy h2 {
+  font-size: clamp(2.8rem, 5vw, 4.8rem);
+}
+
+.excerpt {
+  max-width: 42rem;
+  margin-top: 18px;
+  color: var(--color-ink-soft);
+  line-height: 1.65;
+}
+
+.demoNote {
+  margin-top: 20px;
+  color: var(--color-terracotta);
+  font-size: 0.75rem;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  align-self: end;
+  border-bottom: 1px solid currentColor;
+  font-size: 0.84rem;
+  font-weight: 700;
+  white-space: nowrap;
+
+  &:hover {
+    color: var(--color-terracotta);
+  }
+}
+
+@media (max-width: 700px) {
+  .featured {
+    grid-template-columns: 1fr;
+  }
+
+  .content,
+  .featured .content {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    min-height: 0;
+    padding: 32px var(--page-padding);
+  }
+
+  .featured .content {
+    min-height: 460px;
+    padding-block: 48px;
+  }
+
+  .media {
+    min-height: 260px;
+  }
+
+  .link {
+    justify-self: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+}

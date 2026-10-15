@@ -33,6 +33,7 @@ export type Article = {
   image: ContentImage | null;
   category: string | null;
   publishedAt: string;
+  updatedAt: string | null;
   author: string | null;
   relatedServiceSlugs: string[];
   seo: {
