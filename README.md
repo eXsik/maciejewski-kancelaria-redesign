@@ -4,6 +4,16 @@ To jest niezależny koncept strony internetowej lokalnej kancelarii radcy prawne
 
 Projekt nie jest oficjalną stroną kancelarii. Nie został przez nią zamówiony, zatwierdzony ani zweryfikowany. Dane i opisy, których nie dało się potwierdzić, są w aplikacji oznaczone jako demonstracyjne.
 
+## Preview
+
+Kilka widoków z aktualnej wersji projektu:
+
+![Strona główna — desktop](screenshots/home-desktop.png)
+
+![Strona główna — mobile](screenshots/home-mobile.png)
+
+![Lista usług — desktop](screenshots/services-desktop.png)
+
 ## Co znajduje się w projekcie
 
 Strona ma kilka podstawowych ścieżek, które zwykle są potrzebne na stronie kancelarii:
