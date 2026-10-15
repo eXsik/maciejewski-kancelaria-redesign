@@ -1,0 +1,133 @@
+.page {
+  width: min(var(--container-width), calc(100% - (2 * var(--page-padding))));
+  margin-inline: auto;
+  padding-bottom: 112px;
+}
+
+.intro {
+  padding-block: 64px 86px;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.eyebrow,
+.detailsLabel {
+  color: var(--color-terracotta);
+  font-size: 0.8rem;
+}
+
+.introGrid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: clamp(48px, 10vw, 160px);
+  align-items: end;
+  margin-top: 28px;
+
+  h1 {
+    max-width: 760px;
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 6vw, 6.7rem);
+    font-weight: 400;
+    line-height: 0.92;
+    letter-spacing: -0.06em;
+  }
+
+  p {
+    max-width: 360px;
+    padding-bottom: 8px;
+    color: var(--color-ink-soft);
+    line-height: 1.7;
+  }
+}
+
+.contactLayout {
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  gap: clamp(40px, 8vw, 128px);
+  padding-top: 80px;
+}
+
+.details {
+  align-self: start;
+  padding: 32px;
+  background: var(--color-ink);
+  color: var(--color-white);
+
+  h2 {
+    max-width: 330px;
+    margin-top: 64px;
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 3vw, 2.8rem);
+    font-weight: 400;
+    line-height: 1;
+  }
+}
+
+.detailsLabel {
+  color: #d7c39d;
+}
+
+.location {
+  margin-top: 18px;
+  color: rgb(255 255 255 / 76%);
+}
+
+.demoNote {
+  max-width: 310px;
+  margin-top: 80px;
+  padding-top: 20px;
+  border-top: 1px solid rgb(255 255 255 / 20%);
+  color: rgb(255 255 255 / 62%);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.address {
+  display: grid;
+  gap: 12px;
+  margin-top: 48px;
+  color: rgb(255 255 255 / 78%);
+  font-style: normal;
+
+  a:hover {
+    color: #d7c39d;
+  }
+}
+
+.formPanel {
+  max-width: 700px;
+}
+
+@media (max-width: 800px) {
+  .intro {
+    padding-block: 48px 64px;
+  }
+
+  .introGrid,
+  .contactLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .introGrid {
+    gap: 32px;
+
+    h1 {
+      font-size: clamp(3.2rem, 15vw, 5.2rem);
+    }
+  }
+
+  .contactLayout {
+    padding-top: 56px;
+  }
+
+  .details {
+    padding: 24px;
+
+    h2 {
+      margin-top: 48px;
+    }
+  }
+
+  .demoNote {
+    margin-top: 56px;
+  }
+}

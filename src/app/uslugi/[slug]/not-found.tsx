@@ -3,7 +3,7 @@ import styles from "./ServiceDetail.module.scss";
 
 export default function ServiceNotFound() {
   return (
-    <main className={styles.page}>
+    <main className={styles.page} id="main-content">
       <article className={styles.content}>
         <p className={styles.eyebrow}>Nie znaleziono usługi</p>
         <h1 className={styles.title}>Ta usługa nie jest dostępna.</h1>

@@ -5,7 +5,9 @@
 }
 
 .backLink {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   margin-bottom: 4.5rem;
   color: var(--color-ink-soft);
   font-size: 0.9rem;
@@ -29,8 +31,7 @@
   color: var(--color-terracotta);
   font-size: 0.8rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .title {

@@ -15,8 +15,24 @@ describe("MockContentRepository", () => {
     await expect(repository.getServiceBySlug("nie-istnieje")).resolves.toBeNull();
   });
 
-  it("keeps unimplemented article content empty", async () => {
-    await expect(repository.getArticles()).resolves.toEqual([]);
-    await expect(repository.getArticleBySlug("dowolny-artykul")).resolves.toBeNull();
+  it("returns demo articles and resolves them by slug", async () => {
+    const articles = await repository.getArticles();
+
+    expect(articles).toHaveLength(3);
+    expect(articles[0]).toMatchObject({
+      id: "mock-article-testament",
+      slug: "dziedziczenie-testamentowe-czym-jest-testament",
+      relatedServiceSlugs: ["prawo-cywilne"],
+    });
+
+    await expect(
+      repository.getArticleBySlug("dziedziczenie-testamentowe-czym-jest-testament"),
+    ).resolves.toMatchObject({
+      title: "Dziedziczenie testamentowe – czym jest testament?",
+    });
+
+    await expect(
+      repository.getArticleBySlug("dowolny-artykul"),
+    ).resolves.toBeNull();
   });
 });

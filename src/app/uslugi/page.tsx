@@ -10,15 +10,16 @@ export const metadata: Metadata = {
 
 export const revalidate = 300;
 
-export default async function SerivcesPage() {
+export default async function ServicesPage() {
   const repository = getContentRepository();
   const services = await repository.getServices();
 
   return (
-    <main>
+    <main id="main-content">
       <ServicesSection
         services={services}
         isDemoContent={repository.source === "mock"}
+        standalone
       />
     </main>
   );

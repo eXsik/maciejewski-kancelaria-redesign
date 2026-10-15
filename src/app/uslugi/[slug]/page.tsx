@@ -50,12 +50,12 @@ export default async function ServiceDetailPage({
   }
 
   return (
-    <main className={styles.page}>
+    <main className={styles.page} id="main-content">
       <Link className={styles.backLink} href="/uslugi">
         ← Wszystkie usługi
       </Link>
 
-      <article className="styles.content">
+      <article className={styles.content}>
         {service.category ? (
           <p className={styles.eyebrow}>{service.category}</p>
         ) : null}

@@ -1,0 +1,255 @@
+.page {
+  position: relative;
+  isolation: isolate;
+  width: min(var(--container-width), calc(100% - (2 * var(--page-padding))));
+  margin: 0 auto;
+  padding-block: 4.5rem 8rem;
+  overflow: clip;
+
+  &::before {
+    position: absolute;
+    z-index: -1;
+    top: 7rem;
+    right: -12rem;
+    width: 28rem;
+    height: 28rem;
+    border: 1px solid rgb(184 108 82 / 18%);
+    border-radius: 50%;
+    content: "";
+  }
+}
+
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--color-ink-soft);
+  font-size: 0.85rem;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-weight: 700;
+  }
+
+  a:hover {
+    color: var(--color-terracotta);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--color-ink-soft);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+
+  &:hover {
+    color: var(--color-terracotta);
+  }
+}
+
+.article {
+  margin-top: 4rem;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+  gap: 1px;
+  background: var(--color-line);
+  box-shadow: 0 1.5rem 4rem rgb(25 56 58 / 6%);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 480px;
+  padding: clamp(2rem, 5vw, 4rem);
+  background: var(--color-sand);
+
+  h1 {
+    max-width: 12ch;
+    margin-top: 0.75rem;
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 400;
+    letter-spacing: -0.05em;
+    line-height: 0.95;
+  }
+}
+
+.media {
+  position: relative;
+  min-height: 480px;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgb(25 56 58 / 96%), rgb(32 70 70 / 96%)),
+    var(--color-ink);
+  color: var(--color-sand);
+
+}
+
+.mediaImage {
+  object-fit: cover;
+}
+
+.mediaStatement {
+  position: absolute;
+  right: clamp(2rem, 4vw, 4rem);
+  bottom: clamp(2rem, 4vw, 4rem);
+  left: clamp(2rem, 4vw, 4rem);
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 4rem);
+  line-height: 1.02;
+}
+
+.eyebrow {
+  color: var(--color-terracotta);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+  color: var(--color-ink-soft);
+  font-size: 0.85rem;
+}
+
+.excerpt {
+  max-width: 760px;
+  margin-top: 4rem;
+  color: var(--color-ink-soft);
+  font-size: 1.2rem;
+  line-height: 1.7;
+}
+
+.content {
+  max-width: 680px;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-line);
+  font-size: 1.1rem;
+  line-height: 1.85;
+
+  p + p {
+    margin-top: 1.5rem;
+  }
+}
+
+.related {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 2rem;
+  max-width: 760px;
+  margin-top: 3.5rem;
+  padding: 1.5rem;
+  background: var(--color-ink);
+  color: var(--color-white);
+
+  .eyebrow {
+    color: var(--color-sand);
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    flex-shrink: 0;
+    width: fit-content;
+    font-weight: 700;
+
+    &:hover {
+      color: var(--color-sand);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+  }
+}
+
+.relatedIntro {
+  max-width: 24rem;
+  margin-top: 0.5rem;
+  color: #d9e0da;
+  line-height: 1.5;
+}
+
+.relatedArticles {
+  max-width: 760px;
+  margin-top: 3.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-line);
+}
+
+.relatedArticleList {
+  display: grid;
+  gap: 1px;
+  margin-top: 1rem;
+  background: var(--color-line);
+
+  a {
+    display: flex;
+    min-height: 56px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--color-sand-light);
+    font-weight: 700;
+
+    &:hover {
+      color: var(--color-terracotta);
+    }
+  }
+}
+
+.demoNotice {
+  max-width: 760px;
+  margin-top: 3rem;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--color-terracotta);
+  background: var(--color-sand-light);
+  color: var(--color-ink-soft);
+  line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+  .page {
+    overflow: hidden;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .header,
+  .media {
+    min-height: 0;
+  }
+
+  .header {
+    padding-top: 2.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .media {
+    min-height: 260px;
+  }
+
+  .related {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

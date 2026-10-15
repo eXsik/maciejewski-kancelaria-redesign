@@ -22,22 +22,22 @@ describe("Home sections", () => {
     );
 
     expect(
-      screen.getByRole("heading", { level: 1, name: "Prawo po ludzku" }),
+      screen.getByRole("heading", { level: 1, name: "Prawo, które daje jasność." }),
     ).toBeInTheDocument();
     expect(screen.getAllByRole("heading", { level: 2 })).toHaveLength(2);
     expect(screen.getAllByRole("heading", { level: 3 })).toHaveLength(4);
   });
 
-  it("labels all mock services as demonstrative content", async () => {
+  it("discloses demo content once instead of repeating demo labels", async () => {
     const services = await repository.getServices();
 
     render(<ServicesSection services={services} isDemoContent />);
 
     expect(screen.getAllByRole("article")).toHaveLength(4);
-    expect(screen.getAllByText("Treść demonstracyjna")).toHaveLength(4);
+    expect(screen.queryByText("Treść demonstracyjna")).not.toBeInTheDocument();
     expect(
       screen.getByText(
-        "Poniższe nazwy i opisy są placeholderami demonstracyjnymi. Nie stanowią potwierdzonej oferty kancelarii.",
+        "Poniższe nazwy i opisy są treściami demonstracyjnymi opartymi na publicznie dostępnych informacjach. Nie stanowią potwierdzonej oferty kancelarii.",
       ),
     ).toBeInTheDocument();
   });
@@ -48,7 +48,7 @@ describe("Home sections", () => {
     render(<ServicesSection services={services} isDemoContent />);
 
     const detailLinks = screen.getAllByRole("link", {
-      name: /Dowiedz się więcej/,
+      name: /Poznaj obszar|Dowiedz się więcej/,
     });
 
     expect(detailLinks).toHaveLength(4);
@@ -67,7 +67,23 @@ describe("Home sections", () => {
     expect(screen.queryByRole("article")).not.toBeInTheDocument();
   });
 
-  it("does not create fake phone or email links for mock contact data", async () => {
+  it("uses a page heading hierarchy in the standalone services variant", async () => {
+    const services = await repository.getServices();
+
+    render(
+      <ServicesSection services={services} isDemoContent standalone />,
+    );
+
+    expect(
+      screen.getByRole("heading", {
+        level: 1,
+        name: "Wsparcie dopasowane do Twojej sytuacji.",
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByRole("heading", { level: 2 })).toHaveLength(4);
+  });
+
+  it("renders public contact data as demo content", async () => {
     const firm = await repository.getFirmProfile();
 
     render(<ContactSection firm={firm} isDemoContent />);
@@ -77,10 +93,15 @@ describe("Home sections", () => {
     });
 
     expect(
-      within(contactSection).getByText("Ostrów Wielkopolski"),
+      within(contactSection).getByText(
+        "ul. Gimnazjalna 2/1, 63-400 Ostrów Wielkopolski",
+      ),
     ).toBeInTheDocument();
-    expect(within(contactSection).queryByRole("link")).not.toBeInTheDocument();
-    expect(contactSection.querySelector('a[href^="tel:"]')).toBeNull();
-    expect(contactSection.querySelector('a[href^="mailto:"]')).toBeNull();
+    expect(
+      within(contactSection).getByRole("link", { name: /62 736 81 09/ }),
+    ).toHaveAttribute("href", "tel:627368109574630770");
+    expect(
+      within(contactSection).getByRole("link", { name: /kancelaria@/ }),
+    ).toHaveAttribute("href", "mailto:kancelaria@radcaprawny-ostrow.pl");
   });
 });

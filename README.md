@@ -1,65 +1,54 @@
-# Maciejewski Kancelaria — portfolio redesign concept
+# Maciejewski Kancelaria — redesign concept
 
-Niezależny koncept redesignu strony lokalnej kancelarii radcy prawnego z Ostrowa Wielkopolskiego. Projekt służy wyłącznie jako portfolio frontendowe.
+To jest niezależny koncept strony internetowej lokalnej kancelarii radcy prawnego z Ostrowa Wielkopolskiego. Zrobiłem go jako projekt do portfolio, żeby pokazać sposób pracy z Next.js, TypeScript, SCSS i treścią, która docelowo mogłaby być zarządzana w WordPressie.
 
-> [!IMPORTANT]
-> Projekt nie został zamówiony, zatwierdzony ani zweryfikowany przez kancelarię i nie jest jej oficjalną stroną. Nazwy usług oraz pozostałe niezweryfikowane treści są oznaczone jako demonstracyjne. Projekt nie przedstawia prawdziwych wyników, opinii klientów ani danych biznesowych.
+Projekt nie jest oficjalną stroną kancelarii. Nie został przez nią zamówiony, zatwierdzony ani zweryfikowany. Dane i opisy, których nie dało się potwierdzić, są w aplikacji oznaczone jako demonstracyjne.
 
-## Aktualny stan
+## Co znajduje się w projekcie
 
-Zaimplementowany jest pierwszy kompletny vertical slice strony głównej:
+Strona ma kilka podstawowych ścieżek, które zwykle są potrzebne na stronie kancelarii:
 
-- responsywny nagłówek, hero, sekcja usług i sekcja kontaktowa,
-- widoczna informacja o charakterze projektu,
-- przykładowe dane dostarczane przez jawny adapter mock,
-- domenowe modele `Service`, `Article` i `FirmProfile`,
-- granica `ContentRepository` oddzielająca UI od struktur CMS,
-- wstępny adapter WordPress/WPGraphQL,
-- statyczne generowanie strony z rewalidacją co 5 minut,
-- SCSS Modules, semantyczny HTML i obsługa reduced motion,
-- testy jednostkowe i komponentowe w Jest oraz React Testing Library.
+- strona główna, informacje o kancelarii i polityka prywatności,
+- lista usług oraz osobne strony poszczególnych usług,
+- lista artykułów i strony pojedynczych artykułów,
+- formularz kontaktowy z walidacją po stronie przeglądarki i serwera,
+- stany błędu, sukcesu i pustych list,
+- responsywny layout oraz podstawy dostępności,
+- metadata, Open Graph, sitemap, robots i dane strukturalne.
 
-Adapter WordPress jest przygotowany koncepcyjnie, ale nie został jeszcze zweryfikowany z działającą instancją WordPressa i nie powinien być traktowany jako ukończona integracja.
+Treści są obecnie dostarczane z lokalnego adaptera mock. Dzięki temu aplikację można uruchomić bez przygotowywania WordPressa, a jednocześnie interfejs nie jest bezpośrednio zależny od struktur odpowiedzi CMS.
 
-## Stack
+## WordPress i architektura
 
-- Next.js 16 App Router
-- React 19
-- TypeScript w trybie strict
-- Sass / SCSS Modules
-- Jest 30
-- React Testing Library
-- ESLint
-
-## Architektura w skrócie
+Docelowy przepływ danych wygląda tak:
 
 ```text
-WordPress + ACF + WPGraphQL (planowane źródło produkcyjne)
-                         │
-                         ▼
-                ContentRepository
-                    ┌────┴────┐
-                    ▼         ▼
-             Mock adapter   WordPress adapter
-                    │
-                    ▼
-               modele domenowe
-                    │
-                    ▼
-            Server Components + UI
+WordPress + ACF + WPGraphQL
+            ↓
+      adapter treści
+            ↓
+      modele aplikacji
+            ↓
+      strony i komponenty Next.js
 ```
 
-Komponenty nie korzystają bezpośrednio z odpowiedzi WPGraphQL. Mapowanie danych CMS do modeli aplikacji pozostaje w `src/lib/content`.
+W kodzie tę granicę reprezentuje `ContentRepository`. Jest dostępny adapter mock oraz przygotowany adapter WordPress/WPGraphQL.
 
-Więcej informacji:
+## Technologie
 
-- [Architektura](docs/ARCHITECTURE.md)
-- [Decyzje techniczne](docs/DECISIONS.md)
-- [Plan rozwoju](docs/DEVELOPMENT_PLAN.md)
+- Next.js 16 z App Routerem,
+- React 19,
+- TypeScript w trybie strict,
+- Sass i SCSS Modules,
+- Jest, React Testing Library i Playwright,
+- ESLint,
+- WordPress, ACF i WPGraphQL jako planowane źródło treści.
 
-## Uruchomienie lokalne
+Strony korzystają z Server Components tam, gdzie nie jest potrzebna interakcja po stronie klienta. Dane są generowane statycznie i odświeżane co pięć minut. Formularz kontaktowy jest jedynym większym fragmentem wymagającym własnej logiki klienckiej.
 
-Projekt został zweryfikowany na Node.js `24.16.0` i npm `11.13.0`. Repozytorium nie definiuje jeszcze oficjalnej minimalnej wersji Node.js.
+## Uruchomienie
+
+Projekt był sprawdzany na Node.js `24.16.0` i npm `11.13.0`.
 
 ```bash
 npm install
@@ -67,61 +56,55 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Następnie otwórz [http://localhost:3000](http://localhost:3000).
+Aplikacja będzie dostępna pod adresem [http://localhost:3000](http://localhost:3000).
 
-## Źródło treści
-
-Domyślnie aplikacja używa danych demonstracyjnych:
+Domyślnie używany jest adapter mock:
 
 ```env
 CONTENT_SOURCE=mock
 ```
 
-Jawne przełączenie na adapter WordPress wymaga obu wartości:
+Adapter WordPress można wybrać jawnie:
 
 ```env
 CONTENT_SOURCE=wordpress
 WORDPRESS_GRAPHQL_URL=http://example.local/graphql
 ```
 
-Tryb WordPress wymaga zgodnego schematu WPGraphQL/ACF. Integracja nie została jeszcze przetestowana end-to-end z realnym CMS.
+Do działania tego trybu potrzebna jest instancja WordPressa z odpowiednim schematem WPGraphQL i polami ACF.
 
-## Komendy
+## Przydatne komendy
 
 ```bash
-npm run dev          # serwer deweloperski
-npm test             # testy uruchamiane jednokrotnie
-npm run test:watch   # testy w trybie obserwowania zmian
+npm run dev          # serwer developerski
+npm test             # testy Jest
+npm run test:e2e     # testy Playwright
 npm run lint         # ESLint
-npx tsc --noEmit     # kontrola typów
-npm run build        # produkcyjny build przez Webpack
-npm start            # uruchomienie istniejącego buildu
+npx tsc --noEmit     # sprawdzenie typów
+npm run build        # produkcyjny build
+npm start            # uruchomienie gotowego buildu
 ```
 
-Webpack jest obecnie wybrany jawnie dla produkcyjnego builda, ponieważ Turbopack nie mógł uruchomić pomocniczego procesu SCSS w używanym środowisku wykonawczym. Decyzja jest opisana w `docs/DECISIONS.md` i powinna zostać ponownie oceniona przy aktualizacji środowiska lub Next.js.
+Testy E2E wymagają zainstalowanej przeglądarki Chromium:
+
+```bash
+npx playwright install chromium
+```
 
 ## Weryfikacja
 
-Aktualny zestaw testów sprawdza:
+Obecnie przechodzą:
 
-- widoczność informacji o koncepcie portfolio,
-- hierarchię nagłówków na Home,
-- oznaczenie demonstracyjnych usług,
-- pusty stan listy usług,
-- brak fikcyjnych linków `tel:` i `mailto:`,
-- podstawowe zachowanie repozytorium mocków.
+- 12 testów Jest,
+- 4 testy Playwright obejmujące nawigację, usługę i formularz kontaktowy,
+- ESLint,
+- kontrola typów TypeScript,
+- produkcyjny build Next.js.
 
-Asynchroniczny Server Component strony głównej nie jest testowany bezpośrednio w Jest. Zgodnie z dokumentacją Next.js takie scenariusze będą pokrywane testami E2E w późniejszym etapie.
+CI uruchamia te same kontrole przy zmianach na głównej gałęzi.
 
-## Zakres planowany
+## Co jeszcze można rozwinąć
 
-- strony About, Services i Service detail,
-- strony Articles i Article detail,
-- formularz kontaktowy z walidacją po obu stronach,
-- Privacy Policy,
-- pełniejsze SEO, dane strukturalne, sitemap i robots,
-- testy E2E krytycznych ścieżek,
-- zweryfikowana integracja WordPress + ACF + WPGraphQL,
-- CI/CD i wdrożenie portfolio.
+Najważniejszym kolejnym krokiem byłoby podłączenie projektu do rzeczywistego WordPressa i potwierdzenie kontraktu WPGraphQL/ACF. Formularz pozostaje demonstracyjny — nie wysyła prawdziwych wiadomości i nie zawiera konfiguracji zewnętrznej usługi mailingowej.
 
-Funkcje z tej listy nie są jeszcze zaimplementowane.
+Wdrożenie online portfolio również nie jest częścią tego repozytorium. Projekt ma przede wszystkim pokazać sposób myślenia, strukturę kodu i podejście do jakości frontendowej.

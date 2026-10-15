@@ -15,11 +15,11 @@ export function ContactSection({ firm, isDemoContent }: ContactSectionProps) {
     <section
       className={styles.contact}
       id="kontakt"
-      aria-labelledby="contact-title"
+      aria-label="Miejsce na zweryfikowane dane kancelarii."
     >
       <div>
         <p className={styles.eyebrow}>Kontakt</p>
-        <h2 id="contact-title">Miejsce na zweryfikowane dane kancelarii.</h2>
+        <h2 id="contact-title">Porozmawiajmy o Twojej sprawie.</h2>
       </div>
 
       <div className={styles.contactDetails}>
@@ -45,8 +45,8 @@ export function ContactSection({ firm, isDemoContent }: ContactSectionProps) {
 
         {isDemoContent ? (
           <p className={styles.contactNote}>
-            Telefon, adres i godziny otwarcia pozostają celowo nieuzupełnione
-            do czasu weryfikacji w wiarygodnym źródle.
+            Dane pochodzą z publicznie dostępnych materiałów i wymagają
+            potwierdzenia przed użyciem produkcyjnym.
           </p>
         ) : !hasContactDetails ? (
           <p className={styles.emptyState}>Dane kontaktowe nie są dostępne.</p>
