@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import "./globals.css";
 import { ConceptNotice } from "@/components/concept-notice/ConceptNotice";
 import { SiteFooter } from "@/components/site-footer/SiteFooter";
@@ -23,7 +24,11 @@ export const metadata: Metadata = {
     : { index: true, follow: true },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+type RootLayoutProps = Readonly<{
+  children: ReactNode;
+}>;
+
+export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="pl" data-scroll-behavior="smooth">
       <body>
